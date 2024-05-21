@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 const qr = require("qr-image");
 const { db } = require("./firebaseConfig");
