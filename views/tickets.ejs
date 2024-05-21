@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Tickets</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .container {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+      }
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2em;
+      }
+      .ticket {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .ticket img {
+        max-width: 100px;
+        display: block;
+        margin: 0 auto 10px;
+      }
+      .ticket p {
+        margin: 5px 0;
+      }
+      .back-link {
+        display: inline-block;
+        background-color: #2575fc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .back-link:hover {
+        background-color: #6a11cb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>All Tickets</h1>
+      <% tickets.forEach(ticket => { %>
+      <div class="ticket">
+        <img src="<%= ticket.backgroundImage %>" alt="Background Image" />
+        <p><strong>Title:</strong> <%= ticket.title %></p>
+        <p><strong>Date:</strong> <%= ticket.date %></p>
+        <p><strong>Location:</strong> <%= ticket.location %></p>
+        <p><strong>Scanned:</strong> <%= ticket.scanned ? 'Yes' : 'No' %></p>
+        <div>
+          <img src="<%= ticket.qrSvg %>" alt="QR Code" />
+        </div>
+      </div>
+      <% }); %>
+      <a href="/" class="back-link">Back to Generate Ticket</a>
+    </div>
+  </body>
+</html>

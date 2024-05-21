@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Scanner</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background: #f4f4f4;
+      }
+      #reader {
+       width: 300px;
+      }
+      #result {
+        margin-top: 20px;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #ddd;
+      }
+      .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        display: none;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="result">
+      <p id="scan-result">Scan a ticket to see the result here.</p>
+      <div class="loader" id="loader"></div>
+    </div>
+    </div>
+    <div id="reader"></div>
+  
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+      function onScanSuccess(qrCodeMessage) {
+        const loader = document.getElementById("loader");
+        const scanResult = document.getElementById("scan-result");
+        scanResult.innerHTML = ""; // Clear previous result
+        loader.style.display = "block"; // Show loader
+
+        fetch(`/scanner/${qrCodeMessage}`)
+          .then((response) => response.text())
+          .then((data) => {
+            loader.style.display = "none"; // Hide loader
+            scanResult.innerHTML = data; // Show scan result
+          })
+          .catch((err) => {
+            loader.style.display = "none"; // Hide loader
+            scanResult.innerHTML = "Error scanning ticket"; // Show error
+          });
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+        fps: 10,
+        qrbox: 250,
+      });
+      html5QrcodeScanner.render(onScanSuccess);
+    </script>
+  </body>
+</html>

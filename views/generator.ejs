@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Ticket</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+      }
+      .container {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        padding: 20px 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2em;
+      }
+      label {
+        display: block;
+        margin: 15px 0 5px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="datetime-local"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+      button {
+        background-color: #2575fc;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #6a11cb;
+      }
+      .message {
+        margin-bottom: 15px;
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generate Ticket</h1>
+      <% if (typeof msg !== 'undefined') { %>
+      <p class="message"><%= msg %></p>
+      <% } %>
+      <form action="/generate" method="POST" enctype="multipart/form-data">
+        <label>Title:</label>
+        <input type="text" name="title" required />
+
+        <label>Date:</label>
+        <input type="datetime-local" name="date" required />
+        <!-- <label>End Date:</label>
+        <input type="datetime-local" name="endDate" required /> -->
+        <label>Location:</label>
+        <input type="text" name="location" required />
+        <label>Background Image:</label>
+        <input type="file" name="backgroundImage" required />
+        <label for="eventLogo">Event Logo:</label>
+        <input
+          type="file"
+          id="eventLogo"
+          name="eventLogo"
+          accept="image/*"
+          required
+        /><br /><br />
+
+        <label for="numTickets">Number of Tickets:</label>
+        <input
+          type="number"
+          id="numTickets"
+          name="numTickets"
+          min="1"
+          required
+        /><br /><br />
+        <button type="submit">Generate Ticket</button>
+      </form>
+    </div>
+  </body>
+</html>

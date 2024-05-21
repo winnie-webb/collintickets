@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generated Tickets</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+      .ticket-container {
+        width: 5.5in;
+        height: 2.125in;
+        background-color: #fff;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        page-break-inside: avoid;
+      }
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-size: cover;
+        background-position: center;
+        filter: blur(3px);
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.653);
+        z-index: 2;
+      }
+      .content {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      .details {
+        width: 65%;
+        margin-top: 40px;
+      }
+      .qr-code {
+        width: 30%;
+        text-align: center;
+      }
+      .qr-code svg {
+        width: 80px;
+        height: 80px;
+      }
+      .event-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      .date-time,
+      .location,
+      .ticket-code {
+        font-size: 12px;
+        margin-bottom: 5px;
+        color: #555;
+      }
+      .ticket-code {
+        font-weight: bold;
+        font-size: 10px;
+      }
+      .disclaimer {
+        font-size: 8px;
+        margin-top: 5px;
+        color: #777;
+      }
+      .event-logo {
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 4;
+      }
+      @media print {
+        body {
+          display: block;
+        }
+        .ticket-container {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <% tickets.forEach(ticket => { %>
+    <div class="ticket-container">
+      <div
+        class="background"
+        style="background-image: url('<%= ticket.backgroundImage %>')"
+      ></div>
+      <div class="overlay"></div>
+      <img src="<%= ticket.eventLogo %>" alt="Event Logo" class="event-logo" />
+      <div class="content">
+        <div class="details">
+          <div class="event-title"><%= ticket.title %></div>
+          <div class="date-time">
+            <div><%= new Date(ticket.date).toLocaleString() %></div>
+            <!-- <div>End: <%= new Date(ticket.endDate).toLocaleString() %></div> -->
+          </div>
+          <div class="location">Location: <%= ticket.location %></div>
+
+          <div class="disclaimer">
+            Must be 18 Years or Older to Drink; Drink Responsibly.
+          </div>
+        </div>
+        <div class="qr-code">
+          <%- decodeURIComponent(ticket.qrSvg) %>
+          <div class="ticket-code">Ticket ID: <%= ticket.id %></div>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+    <script>
+      window.onload = function () {
+        window.print();
+      };
+    </script>
+  </body>
+</html>
