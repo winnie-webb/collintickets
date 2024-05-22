@@ -71,7 +71,13 @@
       <form action="/generate" method="POST" enctype="multipart/form-data">
         <label>Title:</label>
         <input type="text" name="title" required />
-
+        <label>Early Bird or Presold</label>
+        <input
+          placeholder="Eg. Early Bird $1500"
+          type="text"
+          name="eb_ps"
+          required
+        />
         <label>Date:</label>
         <input type="datetime-local" name="date" required />
         <!-- <label>End Date:</label>

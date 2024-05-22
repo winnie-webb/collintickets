@@ -32,13 +32,12 @@ app.post("/generate", (req, res) => {
       ) {
         res.render("generator", { msg: "No file selected!" });
       } else {
-        const { title, date, location, endDate, numTickets } = req.body;
+        const { title, date, location, endDate, numTickets, eb_ps } = req.body;
 
         const backgroundImageFile = req.files["backgroundImage"][0];
         const eventLogoFile = req.files["eventLogo"][0];
         const backgroundImageUrl = await uploadToFirebase(backgroundImageFile);
         const eventLogoUrl = await uploadToFirebase(eventLogoFile);
-
         const tickets = [];
         for (let i = 0; i < numTickets; i++) {
           const ticketId = uuidv4();
@@ -52,6 +51,7 @@ app.post("/generate", (req, res) => {
             date,
             location,
             numTickets,
+            eb_ps,
             // endDate,
             qrSvg,
             scanned: false,
@@ -83,10 +83,10 @@ app.get("/scanner/:id", async (req, res) => {
         res.send("Already scanned!!! Scan another ticket!");
       } else {
         await ticketRef.update({ scanned: true });
-        res.send("Ticket successfully scanned. Scan another ticket!");
+        res.send("Verified Ticket. Scan another ticket!");
       }
     } else {
-      res.send("Invalid ticket!");
+      res.send("Fake ticket!");
     }
   } catch (error) {
     res.status(500).send("Error scanning ticket: " + error.message);

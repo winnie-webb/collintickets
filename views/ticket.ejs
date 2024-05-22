@@ -78,7 +78,8 @@
       }
       .date-time,
       .location,
-      .ticket-code {
+      .ticket-code,
+      .ticket_type {
         font-size: 12px;
         margin-bottom: 5px;
         color: #ffffff;
@@ -122,6 +123,8 @@
       <div class="content">
         <div class="details">
           <div class="event-title"><%= ticket.title %></div>
+          <div class="ticket_type"><%= ticket.eb_ps %></div>
+
           <div class="date-time">
             <div><%= new Date(ticket.date).toLocaleString() %></div>
             <!-- <div>End: <%= new Date(ticket.endDate).toLocaleString() %></div> -->

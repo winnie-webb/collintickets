@@ -80,22 +80,36 @@
         scanResult.innerHTML = ""; // Clear previous result
         loader.style.display = "block"; // Show loader
 
-        fetch(`/scanner/${qrCodeMessage}`)
-          .then((response) => response.text())
-          .then((data) => {
-            loader.style.display = "none"; // Hide loader
-            scanResult.innerHTML = data; // Show scan result
-            scanner.clear(); // Stop the scanner
-            startScanButton.disabled = false; // Enable the button to start scan again
-            scanning = false; // Reset scanning status
+        // Stop the scanner immediately after a successful scan
+        scanner
+          .clear()
+          .then(() => {
+            fetch(`/scanner/${qrCodeMessage}`)
+              .then((response) => response.text())
+              .then((data) => {
+                loader.style.display = "none"; // Hide loader
+                scanResult.innerHTML = data; // Show scan result
+                startScanButton.disabled = false; // Enable the button to start scan again
+                scanning = false; // Reset scanning status
+              })
+              .catch((err) => {
+                loader.style.display = "none"; // Hide loader
+                scanResult.innerHTML = "Error scanning ticket"; // Show error
+                startScanButton.disabled = false; // Enable the button to start scan again
+                scanning = false; // Reset scanning status
+              });
           })
           .catch((err) => {
             loader.style.display = "none"; // Hide loader
-            scanResult.innerHTML = "Error scanning ticket"; // Show error
-            scanner.clear(); // Stop the scanner
+            scanResult.innerHTML = "Error stopping scanner"; // Show error
             startScanButton.disabled = false; // Enable the button to start scan again
             scanning = false; // Reset scanning status
           });
+      }
+
+      function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        console.warn(`Code scan error = ${error}`);
       }
 
       function startScanner() {
@@ -104,7 +118,7 @@
         scanResult.innerHTML = "Scanning..."; // Inform user that scanning is in progress
 
         scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-        scanner.render(onScanSuccess);
+        scanner.render(onScanSuccess, onScanFailure);
       }
 
       // Initial call to setup scanner (user needs to click to start scanning)
