@@ -18,7 +18,7 @@
       }
       .ticket-container {
         width: 5.5in;
-        height: 2.125in;
+        height: 2.5in;
         background-color: #fff;
         position: relative;
         border-radius: 10px;
@@ -104,9 +104,18 @@
       @media print {
         body {
           display: block;
+          background: white;
         }
         .ticket-container {
           page-break-inside: avoid;
+          background-color: white;
+          box-shadow: none;
+        }
+        .background {
+          filter: none;
+        }
+        .overlay {
+          background-color: transparent;
         }
       }
     </style>
@@ -124,13 +133,10 @@
         <div class="details">
           <div class="event-title"><%= ticket.title %></div>
           <div class="ticket_type"><%= ticket.eb_ps %></div>
-
           <div class="date-time">
             <div><%= new Date(ticket.date).toLocaleString() %></div>
-            <!-- <div>End: <%= new Date(ticket.endDate).toLocaleString() %></div> -->
           </div>
           <div class="location">Location: <%= ticket.location %></div>
-
           <div class="disclaimer">
             Must be 18 Years or Older to Drink; Drink Responsibly.
           </div>
