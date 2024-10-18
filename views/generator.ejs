@@ -6,71 +6,104 @@
     <title>Generate Ticket</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        color: white;
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        margin: 0;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        margin: 0;
-        background: linear-gradient(to right, #6a11cb, #2575fc);
+        background: url("https://images.pexels.com/photos/18327490/pexels-photo-18327490/free-photo-of-multi-colored-labels-screening-on-standing-man-in-eyeglasses.jpeg?auto=compress&cs=tinysrgb&w=600")
+          no-repeat center center fixed;
+        background-size: cover;
+        backdrop-filter: blur(5px);
       }
       .container {
-        background: linear-gradient(to right, #6a11cb, #2575fc);
-        padding: 20px 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
         width: 100%;
-        max-width: 500px;
-        text-align: center;
+        max-width: 450px;
       }
-      h1 {
-        margin-bottom: 20px;
-        font-size: 2em;
-      }
+
       label {
         display: block;
         margin: 15px 0 5px;
+        font-size: 1.1em;
         font-weight: bold;
+        color: #fff;
       }
       input[type="text"],
       input[type="datetime-local"],
-      input[type="file"] {
+      input[type="file"],
+      input[type="number"] {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
+        padding: 12px;
+        margin-bottom: 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         font-size: 1em;
+        background-color: #f8f9fa;
+        color: #333;
+        transition: transform 0.2s ease-in-out;
+      }
+      input[type="text"]:focus,
+      input[type="datetime-local"]:focus,
+      input[type="file"]:focus,
+      input[type="number"]:focus {
+        outline: none;
+        transform: scale(1.02);
       }
       button {
-        background-color: #2575fc;
+        background-color: #ff7675;
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 12px 30px;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.3s ease;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        width: 95%;
+        margin: 0 2.5%;
       }
       button:hover {
-        background-color: #6a11cb;
+        background-color: #d63031;
+        transform: translateY(-3px);
       }
       .message {
-        margin-bottom: 15px;
-        color: yellow;
+        margin-bottom: 20px;
+        color: #ffeaa7;
+        font-size: 1.1em;
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2em;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        input[type="file"],
+        input[type="number"] {
+          padding: 10px;
+        }
+        button {
+          font-size: 1.1em;
+          padding: 10px 20px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Generate Ticket</h1>
       <% if (typeof msg !== 'undefined') { %>
       <p class="message"><%= msg %></p>
       <% } %>
       <form action="/generate" method="POST" enctype="multipart/form-data">
         <label>Title:</label>
         <input type="text" name="title" required />
+
         <label>Early Bird or Presold</label>
         <input
           placeholder="Eg. Early Bird $1500"
@@ -78,14 +111,16 @@
           name="eb_ps"
           required
         />
+
         <label>Date:</label>
         <input type="datetime-local" name="date" required />
-        <!-- <label>End Date:</label>
-        <input type="datetime-local" name="endDate" required /> -->
+
         <label>Location:</label>
         <input type="text" name="location" required />
+
         <label>Background Image:</label>
         <input type="file" name="backgroundImage" required />
+
         <label for="eventLogo">Event Logo:</label>
         <input
           type="file"
@@ -93,7 +128,7 @@
           name="eventLogo"
           accept="image/*"
           required
-        /><br /><br />
+        />
 
         <label for="numTickets">Number of Tickets:</label>
         <input
@@ -102,7 +137,8 @@
           name="numTickets"
           min="1"
           required
-        /><br /><br />
+        />
+
         <button type="submit">Generate Ticket</button>
       </form>
     </div>
