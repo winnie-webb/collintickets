@@ -5,41 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Montserrat", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
-        background: #f4f4f4;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
       }
       .container {
         text-align: center;
-        padding: 20px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        transition: transform 0.3s ease;
+      }
+      .container:hover {
+        transform: scale(1.05);
       }
       .container h1 {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+        color: #333;
       }
       .container a {
-        display: block;
-        margin: 10px 0;
-        padding: 10px 20px;
-        background: #1785fa;
+        display: inline-block;
+        margin: 15px 0;
+        padding: 12px 30px;
+        background: #2575fc;
         color: white;
         text-decoration: none;
-        border-radius: 5px;
+        font-size: 1.1em;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
       }
       .container a:hover {
-        background: #0056b3;
+        background: #6a11cb;
+        transform: translateY(-5px);
+      }
+      .container a:active {
+        transform: translateY(-2px);
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+        .container a {
+          padding: 10px 20px;
+          font-size: 1em;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
+      <h1>Welcome Mr. Morgan</h1>
       <a href="/generator">Generate Ticket</a>
       <a href="/scan">Scan Ticket</a>
     </div>
