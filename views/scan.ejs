@@ -5,33 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR Code Scanner</title>
     <style>
+      /* Import Roboto font */
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Roboto", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         height: 100vh;
         margin: 0;
-        background: #f4f4f4;
+        background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+        color: #333;
       }
       #reader {
         width: 300px;
+        margin-top: 20px;
       }
       #result {
-        margin-top: 20px;
-        padding: 10px;
-        background: #fff;
-        border: 1px solid #ddd;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
         text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+      #scan-result {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        color: #555;
       }
       .loader {
-        border: 16px solid #f3f3f3; /* Light grey */
-        border-top: 16px solid #3498db; /* Blue */
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
         border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
         display: none;
         margin: 20px auto;
       }
@@ -44,15 +56,22 @@
         }
       }
       #start-scan {
-        margin-top: 20px;
-        padding: 10px 20px;
+        padding: 12px 30px;
         background-color: #3498db;
         color: #fff;
         border: none;
+        border-radius: 8px;
         cursor: pointer;
+        font-size: 1.1em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+      #start-scan:hover {
+        background-color: #2c80c0;
+        transform: translateY(-3px);
       }
       #start-scan:disabled {
-        background-color: #aaa;
+        background-color: #bbb;
         cursor: not-allowed;
       }
     </style>
