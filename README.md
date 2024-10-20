@@ -14,8 +14,3 @@ Collin Tickets is a web application designed for generating event tickets and sc
 - **Backend**: Node.js, Express
 - **Database**: MongoDB (or Firebase, depending on your implementation)
 - **QR Code Generation**: QR Code Generator API or library
-
-### Installation and Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/winnie-webb/collin-tickets.git
